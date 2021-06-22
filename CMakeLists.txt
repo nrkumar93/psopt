@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.12)
 project(PSOPT VERSION 5.0.1 LANGUAGES CXX)
 
-option(BUILD_EXAMPLES "Build examples from the example subdirectory." OFF)
+option(BUILD_EXAMPLES "Build examples from the example subdirectory." ON)
 option(WITH_SNOPT_INTERFACE "Build interface for the SNOPT optimizer." OFF)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)

@@ -1,3 +1,6 @@
+## INSTALL IN UBUNTU 16.04
+First install Eigen 3.3.9
+- Can be installed from source in GitLab with instructions in INSTALL file 
 
 PSOPT
 =====
