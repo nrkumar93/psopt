@@ -2,6 +2,7 @@ cmake_minimum_required (VERSION 3.10)
 project(PSOPT_EXAMPLES LANGUAGES CXX)
 
 add_subdirectory(alpine/)
+add_subdirectory(alt_joint/)
 add_subdirectory(bioreactor/)
 add_subdirectory(brac1/)
 add_subdirectory(breakwell/)
