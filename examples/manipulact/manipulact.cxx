@@ -194,7 +194,7 @@ int main(void)
   problem.phases(1).bounds.lower.events(3) = 0.0;
   problem.phases(1).bounds.lower.events(4) = 0.0;
   problem.phases(1).bounds.lower.events(5) = 0.0;
-  problem.phases(1).bounds.lower.events(6) = 0.2*M_PI;
+  problem.phases(1).bounds.lower.events(6) = M_PI;
   problem.phases(1).bounds.lower.events(7) = 0.0;
   problem.phases(1).bounds.lower.events(8) = 0.0;
   problem.phases(1).bounds.lower.events(9) = 0.0;
@@ -208,8 +208,8 @@ int main(void)
   problem.phases(1).bounds.lower.StartTime    = 0.0;
   problem.phases(1).bounds.upper.StartTime    = 0.0;
 
-  problem.phases(1).bounds.lower.EndTime      = 0.0;
-  problem.phases(1).bounds.upper.EndTime      = 10.0;
+  problem.phases(1).bounds.lower.EndTime      = 0.1;
+  problem.phases(1).bounds.upper.EndTime      = 3.0;
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -232,7 +232,7 @@ int main(void)
 
   MatrixXd x0(6,nodes);
 
-  x0 <<  linspace(0.0,0.2*M_PI, nodes),
+  x0 <<  linspace(0.0,M_PI, nodes),
           linspace(0.0,0.0, nodes),
           linspace(0.0,0.0, nodes),
           linspace(0.0,0.0, nodes),
@@ -241,7 +241,7 @@ int main(void)
 
   problem.phases(1).guess.controls       = zeros(3,nodes);
   problem.phases(1).guess.states         = x0;
-  problem.phases(1).guess.time           = linspace(0.0, 10.0, nodes);
+  problem.phases(1).guess.time           = linspace(0.0, 3.0, nodes);
 
 ////////////////////////////////////////////////////////////////////////////
 ///////////////////  Enter algorithm options  //////////////////////////////
