@@ -35,7 +35,8 @@
 #ifndef PSOPT_MCODER_MATH_H
 #define PSOPT_MCODER_MATH_H
 
-#include "pm_std.h"
+//#include "pm_std.h"
+#include "tmwtypes.h"
 #include <cstring>
 #include <cmath>
 
@@ -106,7 +107,6 @@
 //
 //template <class T> void pm_math_Matrix3x3_minRotation_ra(const T*pm_math_VnD_HGFKVUOWdDAWvZhyEb,
 //T*pm_math_FqUCZrSGGNOuePgRr82o_8,int pm_math_kbzF46WM0FtKWeE0s7WR95[3]);
-
 
 template <class T> T pm_math_Vector3_dot_ra(const T*pm_math__AuaKMC5koOPbXxPi_MZvt,
 const T*pm_math_kNtPmLll5l8eiqwtk5kfJv)
@@ -651,6 +651,56 @@ pm_math_FL1llpmubk_sXeD10Sbe3f[0];pm_math_FL1llpmubk_sXeD10Sbe3f[3]= -
 pm_math_FL1llpmubk_sXeD10Sbe3f[3];pm_math_FL1llpmubk_sXeD10Sbe3f[6]= -
 pm_math_FL1llpmubk_sXeD10Sbe3f[6];}
 }
+
+template <class T> void
+pm_math_VWv_QvuNRm4viyJPPMYOkS(const T*pm_math__ut5UfJwzNlZ_XZC_yEgKo,
+const T*b,uint32_T n,boolean_T pm_math_FEqGkTLIgMdKjaJ1lIV70b,T*x){
+uint32_T pm_math_kwrB3ZoKf7OufTHWaHJV7a,pm_math_kyp6uAyJE40UVuAQNEYzS1;for(
+pm_math_kwrB3ZoKf7OufTHWaHJV7a=0;pm_math_kwrB3ZoKf7OufTHWaHJV7a<n;x-=
+pm_math_kwrB3ZoKf7OufTHWaHJV7a,pm_math_kwrB3ZoKf7OufTHWaHJV7a++){T
+pm_math_FQferGZUKft3_i5GvYy4Oy=0.0;const T*pm_math_FL1llpmubk_sXeD10Sbe3f
+=pm_math__ut5UfJwzNlZ_XZC_yEgKo++;for(pm_math_kyp6uAyJE40UVuAQNEYzS1=0;
+pm_math_kyp6uAyJE40UVuAQNEYzS1<pm_math_kwrB3ZoKf7OufTHWaHJV7a;++
+pm_math_kyp6uAyJE40UVuAQNEYzS1,pm_math_FL1llpmubk_sXeD10Sbe3f+=n)
+pm_math_FQferGZUKft3_i5GvYy4Oy+= *pm_math_FL1llpmubk_sXeD10Sbe3f**x++;*x=
+pm_math_FEqGkTLIgMdKjaJ1lIV70b?(*b++-pm_math_FQferGZUKft3_i5GvYy4Oy):((*b++-
+pm_math_FQferGZUKft3_i5GvYy4Oy)/ *pm_math_FL1llpmubk_sXeD10Sbe3f);}}
+
+template <class T> void
+pm_math_VRlre4EWbUOCcXxk9GINjY(const T*pm_math_Vi4Cp0qK964NYTFMGr9Ttn,
+const T*b,uint32_T n,boolean_T pm_math_FEqGkTLIgMdKjaJ1lIV70b,T*x){
+uint32_T pm_math_kwrB3ZoKf7OufTHWaHJV7a,pm_math_kyp6uAyJE40UVuAQNEYzS1;
+pm_math_Vi4Cp0qK964NYTFMGr9Ttn+=n*n;b+=n-1;x+=n-1;for(
+pm_math_kwrB3ZoKf7OufTHWaHJV7a=0;pm_math_kwrB3ZoKf7OufTHWaHJV7a<n;x+=
+pm_math_kwrB3ZoKf7OufTHWaHJV7a,pm_math_kwrB3ZoKf7OufTHWaHJV7a++){T
+pm_math_FQferGZUKft3_i5GvYy4Oy=0.0;const T*pm_math_FL1llpmubk_sXeD10Sbe3f
+= --pm_math_Vi4Cp0qK964NYTFMGr9Ttn;for(pm_math_kyp6uAyJE40UVuAQNEYzS1=
+pm_math_kwrB3ZoKf7OufTHWaHJV7a;pm_math_kyp6uAyJE40UVuAQNEYzS1>0;
+pm_math_FL1llpmubk_sXeD10Sbe3f-=n,--pm_math_kyp6uAyJE40UVuAQNEYzS1)
+pm_math_FQferGZUKft3_i5GvYy4Oy+= *pm_math_FL1llpmubk_sXeD10Sbe3f**x--;*x=
+pm_math_FEqGkTLIgMdKjaJ1lIV70b?(*b-- -pm_math_FQferGZUKft3_i5GvYy4Oy):((*b-- -
+pm_math_FQferGZUKft3_i5GvYy4Oy)/ *pm_math_FL1llpmubk_sXeD10Sbe3f);}}
+
+template <class T> void pm_math_lin_alg_choleskySolve(const T*pm_math_knZMtGN5npp9jax3au9uBf
+,const T*b,uint32_T n,T*x,T*pm_math_VRZCD_UL_ESThy75dC9J8D){
+pm_math_VWv_QvuNRm4viyJPPMYOkS(pm_math_knZMtGN5npp9jax3au9uBf,b,n,false,
+pm_math_VRZCD_UL_ESThy75dC9J8D);pm_math_VRlre4EWbUOCcXxk9GINjY(
+pm_math_knZMtGN5npp9jax3au9uBf,pm_math_VRZCD_UL_ESThy75dC9J8D,n,false,x);}
+
+template <class T> void
+solveSymmetricPosDef(const T*sm_F2l4p_g4sn02huHNflQjMH,const T*b,
+uint32_T n,uint32_T sm_V2__YrimeI4E_yWnhKofpy,T*x,T*
+sm_VRZCD_UL_ESThy75dC9J8D){if(sm_V2__YrimeI4E_yWnhKofpy==1){if(n<=1){if(n==1)*
+x= *b/ *sm_F2l4p_g4sn02huHNflQjMH;}else pm_math_lin_alg_choleskySolve(
+sm_F2l4p_g4sn02huHNflQjMH,b,n,x,sm_VRZCD_UL_ESThy75dC9J8D);}else{uint32_T
+pm_Fr_bHKkQKFWbfi50VWd5Pw=0;if(n<=1){if(n==1)for(pm_Fr_bHKkQKFWbfi50VWd5Pw=0;
+pm_Fr_bHKkQKFWbfi50VWd5Pw<sm_V2__YrimeI4E_yWnhKofpy;++
+pm_Fr_bHKkQKFWbfi50VWd5Pw)*x++= *b++/ *sm_F2l4p_g4sn02huHNflQjMH;}else{for(
+pm_Fr_bHKkQKFWbfi50VWd5Pw=0;pm_Fr_bHKkQKFWbfi50VWd5Pw<
+sm_V2__YrimeI4E_yWnhKofpy;++pm_Fr_bHKkQKFWbfi50VWd5Pw)
+pm_math_lin_alg_choleskySolve(sm_F2l4p_g4sn02huHNflQjMH,b+
+pm_Fr_bHKkQKFWbfi50VWd5Pw*n,n,x+pm_Fr_bHKkQKFWbfi50VWd5Pw*n,
+sm_VRZCD_UL_ESThy75dC9J8D);}}}
 
 
 #endif //PSOPT_MCODER_MATH_H

@@ -63,11 +63,9 @@
 //  derivatives[ 3 ] = x1;
 //}
 
-void dae(adouble* deriv, adouble* path, adouble* state,
-         adouble* input, adouble* parameters, adouble& time,
-         adouble* xad, int iphase, Workspace* workspace)
+void dynamics(const double* state, const double* input, double* deriv)
 {
-  adouble xx[14];
+  double xx[14];
   xx[0] = 2.0;
   xx[1] = 0.125;
   xx[2] = 0.5;
@@ -95,4 +93,65 @@ void dae(adouble* deriv, adouble* path, adouble* state,
   deriv[1] = xx[13];
   deriv[2] = state[3];
   deriv[3] = (xx[1] - xx[0] * (xx[11] * xx[4] + xx[1] * xx[5]) * xx[5]) * xx[8];
+}
+
+void dae(adouble* deriv, adouble* path, adouble* state,
+         adouble* input, adouble* parameters, adouble& time,
+         adouble* xad, int iphase, Workspace* workspace)
+{
+  bool auto_deriv = (workspace->algorithm->derivatives == "automatic")? true: false;
+
+  if (workspace->problem->mj_backend)
+  {
+    assert(auto_deriv == false);
+    workspace->problem->mj_handle.forwardSimulate(state, input, deriv);
+  std::cout << "deriv: " <<  deriv[0] << "\t" << deriv[1] << "\t" << deriv[2] << "\t" << deriv[3] << std::endl;
+    return;
+  }
+
+  if (auto_deriv)
+  {
+    adouble xx[14];
+    xx[0] = 2.0;
+    xx[1] = 0.125;
+    xx[2] = 0.5;
+    xx[3] = xx[2] * state[2];
+    xx[4] = sin(xx[3]);
+    xx[5] = cos(xx[3]);
+    xx[3] = xx[0] * xx[5] * xx[4];
+    xx[6] = xx[2] * xx[3];
+    xx[7] = 0.03125000000000001;
+
+    xx[8] = xx[1] / xx[7];
+    xx[7] = 1.0;
+    xx[9] = xx[0] * xx[4] * xx[4] - xx[7];
+    xx[10] = (xx[2] - xx[1] * xx[8]) * xx[9];
+    xx[2] = xx[0] + xx[6] * xx[3] + xx[10] * xx[9];
+    memcpy(xx + 9, xx + 2, 1 * sizeof(double));
+
+    xx[11] = 9.810000000000002;
+    xx[12] = 1.77635683940025e-15;
+    xx[13] = (input[0] + xx[0] * xx[1] * state[3] * state[3] * xx[4] * xx[5]) /
+             xx[9] + xx[11] * (xx[6] * (xx[0] * xx[5] * xx[5] - xx[7]) + xx[3] * xx[10]) /
+                     xx[9] + xx[12] * xx[2] / xx[9];
+    xx[1] = xx[13] - xx[12];
+    deriv[0] = state[1];
+    deriv[1] = xx[13];
+    deriv[2] = state[3];
+    deriv[3] = (xx[1] - xx[0] * (xx[11] * xx[4] + xx[1] * xx[5]) * xx[5]) * xx[8];
+  }
+  else
+  {
+    double x[4], u[1], dx[4];
+    for (int i=0; i<4; ++i)
+    {
+      x[i] = state[i].value();
+    }
+    u[0] = input[0].value();
+    dynamics(x, u, dx);
+    for (int i=0; i<4; ++i)
+    {
+      deriv[i] = dx[i];
+    }
+  }
 }

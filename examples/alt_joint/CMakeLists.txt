@@ -26,6 +26,18 @@ add_executable(${PROJECT_NAME} $<$<BOOL:$<TARGET_EXISTS:PSOPT_SNOPT_interface>>:
 add_dependencies(${PROJECT_NAME} PSOPT)
 target_link_libraries(${PROJECT_NAME} PUBLIC PSOPT PRIVATE PkgConfig::ipopt adolc Eigen3::Eigen)
 
+add_executable(${PROJECT_NAME}_no_s $<$<BOOL:$<TARGET_EXISTS:PSOPT_SNOPT_interface>>:$<TARGET_OBJECTS:PSOPT_SNOPT_interface>>
+        dynamics.cpp
+        alt_joint_no_s.cxx)
+add_dependencies(${PROJECT_NAME}_no_s PSOPT)
+target_link_libraries(${PROJECT_NAME}_no_s PUBLIC PSOPT PRIVATE PkgConfig::ipopt adolc Eigen3::Eigen)
+
+add_executable(${PROJECT_NAME}_quat $<$<BOOL:$<TARGET_EXISTS:PSOPT_SNOPT_interface>>:$<TARGET_OBJECTS:PSOPT_SNOPT_interface>>
+        dynamics.cpp
+        alt_joint_quat.cxx)
+add_dependencies(${PROJECT_NAME}_quat PSOPT)
+target_link_libraries(${PROJECT_NAME}_quat PUBLIC PSOPT PRIVATE PkgConfig::ipopt adolc Eigen3::Eigen)
+
 if(${WITH_SNOPT_INTERFACE})
     enable_language(Fortran)
     target_link_libraries(${PROJECT_NAME} PRIVATE gfortran ${snopt7_LIBRARIES} PSOPT_SNOPT_interface)

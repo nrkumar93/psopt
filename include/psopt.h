@@ -82,6 +82,7 @@ using namespace std;
 #include <adolc/sparse/sparsedrivers.h>
 #include <adolc/taping.h>
 
+#include "mujoco_interface.h"
 
 #include <string>
 using std::string;
@@ -383,6 +384,10 @@ public:
    string  outfilename;
 
    void* user_data;
+
+   MujocoPsopt mj_handle;
+
+   bool mj_backend;
 
    Phases&   phases(int iphase);
 

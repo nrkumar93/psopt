@@ -17,6 +17,11 @@ endif()
 file(GLOB SRC src/*.cxx)
 file(GLOB HEADER include/*.h)
 
+set(MUJOCO_INCLUDE_DIR "/home/gaussian/cmu_ri_phd/phd_misc/mujoco200_linux/include")
+set(MUJOCO_LIB_DIR "/home/gaussian/cmu_ri_phd/phd_misc/mujoco200_linux/bin")
+include_directories(${MUJOCO_INCLUDE_DIR})
+link_directories(${MUJOCO_LIB_DIR})
+
 add_library(${PROJECT_NAME} $<$<BOOL:$<TARGET_EXISTS:PSOPT_SNOPT_interface>>:$<TARGET_OBJECTS:PSOPT_SNOPT_interface>> ${SRC} ${HEADER})
 target_include_directories(${PROJECT_NAME}
 PUBLIC 
@@ -24,7 +29,7 @@ PUBLIC
     $<INSTALL_INTERFACE:include/${PROJECT_NAME}>
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE adolc PkgConfig::ipopt Eigen3::Eigen)
+target_link_libraries(${PROJECT_NAME} PRIVATE adolc PkgConfig::ipopt Eigen3::Eigen mujoco200 GL glew)
 add_definitions(-DPSOPT_RELEASE_STRING="${PSOPT_VERSION}" -DHAVE_CSTDDEF)
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_delegating_constructors)

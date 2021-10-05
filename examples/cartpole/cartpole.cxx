@@ -154,6 +154,13 @@ int main(void)
 
   psopt_level2_setup(problem, algorithm);
 
+////////////////////////////////////////////////////////////////////////////
+////////////////////////  Setup Mujoco interface ///////////////////////////
+////////////////////////////////////////////////////////////////////////////
+  const char* mjcf_file = "/home/gaussian/cmu_ri_phd/phd_misc/mujoco200_linux/model/cartpole.xml";
+  problem.mj_handle.setupFromMJCFFile(mjcf_file);
+  problem.mj_backend = true;
+
 
 ////////////////////////////////////////////////////////////////////////////
 ///////////////////  Declare DMatrix objects to store results //////////////
@@ -235,7 +242,8 @@ int main(void)
 
   algorithm.nlp_method                  = "IPOPT";
   algorithm.scaling                     = "automatic";
-  algorithm.derivatives                 = "automatic";
+//  algorithm.derivatives                 = "automatic";
+  algorithm.derivatives                 = "numerical";
   algorithm.nlp_iter_max                = 1000;
   algorithm.nlp_tolerance               = 1.e-6;
 
