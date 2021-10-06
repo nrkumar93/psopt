@@ -107,3 +107,40 @@ void MujocoPsopt::forwardSimulate(const adouble *x, const adouble *u, adouble *d
   }
 }
 
+void MujocoPsopt::forwardSimulate(const double *x, const double *u, double *dx)
+{
+  if (!mj_model_ || !mj_data_)
+  {
+    std::cerr << "[MuJoCo Error] Mujoco models not set! Aborting"  << std::endl;
+    std::abort();
+  }
+
+  assert(mj_model_->nq == mj_model_->nv);
+  double q[mj_model_->nq];
+  double dq[mj_model_->nv];
+  double a[mj_model_->nu];
+
+  for (int i=0; i<mj_model_->nq; ++i)
+  {
+    q[i] = x[2*i];
+    dq[i+1] = x[2*i+1];
+  }
+  for (int i=0; i<mj_model_->nu; ++i)
+  {
+    a[i] = u[i];
+  }
+
+  // setting current state
+  mju_copy(mj_data_->qpos, q, mj_model_->nq);
+  mju_copy(mj_data_->qvel, dq, mj_model_->nv);
+  // setting current control
+  mju_copy(mj_data_->ctrl, a, mj_model_->nu);
+  // Forward simulate
+  mj_forward(mj_model_, mj_data_);
+  // Get the derivatives
+  for (int i=0; i<mj_model_->nq; ++i)
+  {
+    dx[2*i] = x[2*i+1];
+    dx[2*i+1] = mj_data_->qacc[i];
+  }
+}

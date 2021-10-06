@@ -49,6 +49,8 @@ public:
 
   void forwardSimulate(const adouble* x, const adouble* u, adouble* dx);
 
+  void forwardSimulate(const double* x, const double* u, double* dx);
+
 protected:
 
   const char* mjcf_filename_;
