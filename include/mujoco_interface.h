@@ -34,8 +34,13 @@
 
 #include <string>
 #include <adolc/adouble.h>
+#include <chrono>
 
 #include "mujoco.h"
+#include "glfw3.h"
+
+typedef std::chrono::high_resolution_clock Clock;
+using namespace std::chrono;
 
 class MujocoPsopt
 {
@@ -51,7 +56,17 @@ public:
 
   void forwardSimulate(const double* x, const double* u, double* dx);
 
-protected:
+  void inverseSimulate(const double* x, const double* v, const double* a, double* tau);
+
+  void step(const double* x, const double* u, double* dx);
+
+  double interp1(const double t0, const double tf, const double ts, const double x0, const double xf);
+
+  void visualize(double T, std::vector<double> t, std::vector<std::vector<double>> u);
+
+  void visualize(double T, std::vector<double> t, std::vector<std::vector<double>> x, std::vector<std::vector<double>> dx);
+
+public:
 
   const char* mjcf_filename_;
 
